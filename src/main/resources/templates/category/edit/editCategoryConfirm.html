@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thmeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<th:block th:replace="common/fragment ::html_headtag" />
+<title>Category | Edit Confirm</title>
+</head>
+<body>
+	<div class="row justify-content-center mt-5">
+		<div class="col-md-5">
+			<div class="card">
+				<div class="card-header bg-info text-white">
+					<div class="card-title">Create Category Confirm Form</div>
+				</div>
+				<div class="card-body">
+					<form th:action="@{/category/update}" method="POST">
+						<div class="mb-3 form-floating">
+							<input type="text" th:value="${session.CATEGORY.category_name}"
+								name="category_name" class="form-control"
+								placeholder="Leave a category name here" id="category-name"
+								style="height: 100px;" readonly="readonly"></input> <label
+								for="category_name">Enter Category Name</label>
+						</div>
+						<a
+							th:href="@{/category/edit/{id}(id=${session.CATEGORY.category_id})}"><i
+							class="bi bi-arrow-return-left fs-4 text-muted fw-light"></i> </a>
+						<button type="submit" class="btn btn-info text-white"
+							style="float: right;">Update</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

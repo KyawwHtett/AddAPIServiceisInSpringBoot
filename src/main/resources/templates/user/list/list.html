@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<th:block th:replace="common/fragment ::html_headtag" />
+<title>User | List</title>
+</head>
+<body>
+  <div th:replace="common/fragment ::html_header"></div>
+  <div class="card col-md-10 mt-5" style="margin: 0 auto;">
+    <div class="card-header">
+      <ul class="nav nav-pills card-header-pills" style="float: left;">
+        <li><input type="text" class="form form-control"
+          id="userTableSearch" placeholder="Search..."></li>
+        <li class="user-btn ms-2">
+          <button class="btn btn-info text-white" type="button">Search</button>
+        </li>
+        <li class="nav-item ms-2"><a
+          class="btn btn-info text-white" th:href="@{/user/create}">
+            <b>+</b> Add
+        </a></li>
+      </ul>
+      <div style="float: right;">
+        <a class="btn btn-info text-white" th:href="@{/user/download}">
+          Export </a> <a class="btn btn-warning text-white"
+          th:href="@{/logout}"> Logout </a>
+      </div>
+    </div>
+    <div class="card-body mt-5">
+      <table class="table table-hover" id="user-table">
+        <thead class="thead-light">
+          <tr>
+            <th scope="col">No.</th>
+            <th scope="col">User Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Gender</th>
+            <th scope="col">Type</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody th:if="${#arrays.isEmpty(users)}">
+          <tr th:default>
+            <td colspan="6" class="text-center">No users not yet.</td>
+          </tr>
+        </tbody>
+        <tbody th:unless="${#arrays.isEmpty(users)}" class="text-left">
+          <tr th:each="user,index : ${users}">
+            <td th:text="${index.index+1}"></td>
+            <td th:text="${user.username}"></td>
+            <td th:text="${user.email}"></td>
+            <td th:text="${user.gender}"></td>
+            <td th:if="${user.type == '0'}">User</td>
+            <td th:unless="${user.type == '0'}">Admin</td>
+            <td><a th:href="@{/user/edit/{id}(id=${user.id})}"
+              class="btn btn-sm btn-outline-info mr-3">Edit</a><a
+              class="btn btn-sm btn-outline-danger delete-btn ms-2"
+              data-bs-toggle="modal" th:data-modal-id="${user.id}"
+              data-bs-target="#myModal">Delete</a></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="modal fade" id="myModal" tabindex="-1"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Confirm
+                Box</h5>
+              <button type="button" class="btn-close"
+                data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">Are you sure want to delete
+              this user?</div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary"
+                data-bs-dismiss="modal">Close</button>
+              <a class="btn btn-danger btn-ok"
+                th:href="@{/user/delete/id}" id="modal-delete-btn">OK</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div th:replace="common/fragment ::html_footer"></div>
+</body>
+</html>

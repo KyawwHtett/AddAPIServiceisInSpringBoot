@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Post | List</title>
+<th:block th:replace="common/fragment ::html_headtag" />
+<link th:href="@{/css/pagination.css}" rel="stylesheet" />
+</head>
+<body>
+  <div th:replace="common/fragment ::html_header"></div>
+  <div class="card col-md-10 mt-5" style="margin: 0 auto;">
+    <div class="card-header">
+      <form th:action="@{/post/search}" th:object="${postForm}"
+        method="POST">
+        <ul class="nav nav-pills card-header-pills" style="float: left;">
+          <li><input type="text" th:field="*{search}"
+            class="form form-control" id="post-table-search"
+            placeholder="Search..."></li>
+          <li class="user-btn ms-2">
+            <button class="btn btn-info text-white" type="submit">Search</button>
+          </li>
+          <li class="nav-item ms-2"><a
+            class="btn btn-info text-white" th:href="@{/post/create}">
+              <b>+</b> Add
+          </a></li>
+          <li class="user-btn ms-2"><a th:href="@{/post/download}"
+            class="btn btn-info text-white" type="button">Download</a></li>
+        </ul>
+      </form>
+      <div style="float: right;">
+        <a class="btn btn-warning text-white" th:href="@{/logout}">
+          Logout </a>
+      </div>
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+      <div th:each="post: ${postPage.content}">
+        <div class="col">
+          <div class="card border-primary mb-3 mt-3 h-100"
+            style="max-width: 25rem;">
+            <div class="card-header text-muted font-monospace">
+              <a
+                th:href="@{/post/search/{id}(id=${post.categories.category_id})}"
+                style="color: gray;">Category | [[
+                ${post.categories.category_name} ]]</a>
+            </div>
+            <div class="card-body">
+              <p
+                class="card-title text-primary font-monospace fw-bolder">
+                [[ ${post.title} ]]<br> <span><small
+                  class="text-muted fw-light"><i
+                    class="fa fa-user" style="font-size: 11px;"></i></small> <small
+                  th:text="${post.username}" class="text-muted fw-light"
+                  style="font-size: 13px;"></small> </span>
+              </p>
+              <p class="card-text fw-light text-justify"
+                th:text="'&emsp;' + ${post.description}"></p>
+            </div>
+            <div
+              class="card-footer bg-transparent border-primary text-muted fw-light">
+              <div style="float: left;">
+                <p style="margin-bottom: 0;">
+                  <small><i th:if="${post.flag}"
+                    class="fa-solid fa-earth-asia"></i> <i
+                    th:unless="${post.flag}" class="fa-solid fa-lock"></i></small><small
+                    th:text="'&nbsp;' + ${post.prettyTime}"></small>
+                </p>
+              </div>
+              <div style="float: right;">
+                <small><a
+                  th:href="@{/post/edit/{id}(id=${post.post_id})}"
+                  class="badge rounded-pill bg-primary text-decoration-none badge-hover">Edit</a></small>
+                <small><a
+                  class="badge rounded-pill bg-danger text-decoration-none badge-hover delete-btn"
+                  data-bs-toggle="modal"
+                  th:data-modal-id="${post.post_id}"
+                  data-bs-target="#myModal">Delete</a></small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="myModal" tabindex="-1"
+      aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Confirm
+              Box</h5>
+            <button type="button" class="btn-close"
+              data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">Are you sure want to delete this
+            post?</div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary"
+              data-bs-dismiss="modal">Close</button>
+            <a class="btn btn-danger btn-ok"
+              th:href="@{/post/delete/post_id}" id="modal-delete-btn">OK</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="text-center">
+      <div th:if="${postPage.totalPages > 0}" class="pagination"
+        th:each="pageNumber : ${pageNumbers}">
+        <div th:switch="${listType}">
+          <a th:case="'search'"
+            th:href="@{/post/search/(search=${search}, size=${postPage.size}, page=${pageNumber})}"
+            th:text=${pageNumber}
+            th:class="${pageNumber==postPage.number + 1} ? active"></a>
+          <a th:case="'category'"
+            th:href="@{/post/search/{id}(id=${postForm.categories.category_id}, size=${postPage.size}, page=${pageNumber})}"
+            th:text=${pageNumber}
+            th:class="${pageNumber==postPage.number + 1} ? active"></a>
+          <a th:case="*"
+            th:href="@{/post/list(size=${postPage.size}, page=${pageNumber})}"
+            th:text=${pageNumber}
+            th:class="${pageNumber==postPage.number + 1} ? active"></a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div th:replace="common/fragment ::html_footer"></div>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<th:block th:replace="common/fragment ::html_headtag" />
+<title>User | Create Confirm</title>
+</head>
+<body>
+  <div class="row justify-content-center mt-5">
+    <div class="col-md-4">
+      <div class="card">
+        <header class="card-header bg-color">
+          <h4 class="card-title mt-2 text-center">User Create
+            Confirm</h4>
+        </header>
+        <article class="card-body">
+          <form action="#" th:action="@{${url}}" th:obj="${userForm}"
+            method="POST">
+            <div class="form-row">
+              <div class="col form-group">
+                <label>User Name : </label> <span
+                  class="form-check-label"
+                  th:text="${userForm.username}"> </span> <input
+                  type="hidden" th:value="${userForm.username}"
+                  id="username" name="username" class="form-control" />
+              </div>
+              <!-- form-group end.// -->
+            </div>
+            <!-- form-row end.// -->
+            <div class="form-group">
+              <label>Email address : </label> <span
+                class="form-check-label" th:text="${userForm.email}">
+              </span> <input type="hidden" th:value="${userForm.email}"
+                id="email" name="email" class="form-control" />
+            </div>
+            <!-- form-group end.// -->
+            <div class="form-group">
+              <label>Gender : </label> <span class="form-check-label"
+                th:text="${userForm.gender}"> </span> <input
+                type="hidden" th:value="${userForm.gender}" id="gender"
+                name="gender" class="form-control" />
+            </div>
+            <div class="form-group">
+              <label>Type : </label> <span
+                th:if="${userForm.type == '0'}" th:text="User"
+                class="form-check-label"></span> <span
+                th:unless="${userForm.type == '0'}" th:text="Admin"
+                class="form-check-label"></span> <input type="hidden"
+                th:value="${userForm.type}" id="type" name="type"
+                class="form-control" />
+            </div>
+            <!-- form-group end.// -->
+            <div class="form-group">
+              <label>Password : </label> <input type="password"
+                class="form-check-label border-0"
+                th:value="${userForm.password }" readonly /> <input
+                type="hidden" th:value="${userForm.password}"
+                id="password" name="password" class="form-control" />
+            </div>
+            <!-- form-group end.// -->
+            <div class="form-group mt-3 text-center">
+              <button type="submit" name="create"
+                class="btn btn-bg-color">Create</button>
+              <button type="submit" name="back" class="btn btn-bg-color">Back</button>
+            </div>
+            <!-- form-group// -->
+          </form>
+        </article>
+        <!-- card-body end .// -->
+      </div>
+      <!-- card.// -->
+    </div>
+    <!-- col.//-->
+  </div>
+</body>
+</html>

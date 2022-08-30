@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Login</title>
+<link th:href="@{/css/reset.css}" rel="stylesheet" />
+<link th:href="@{/css/login.css}" rel="stylesheet" />
+<th:block th:replace="common/fragment ::html_headtag" />
+</head>
+<body>
+  <div class="wrapper fadeInDown">
+    <div id="formContent">
+      <!-- Icon -->
+      <div class="fadeIn first mt-2">
+        <i class="fa-solid fa-circle-user"
+          style="font-size: 80px; color: #D3D3D3"></i>
+      </div>
+      <!-- Login Form -->
+      <form th:action="@{/login}" th:object="${loginForm}" method="POST">
+        <input type="email" th:value="${loginForm.email}" id="email"
+          class="fadeIn second" name="email" placeholder="Email" />
+        <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
+          class="fadeIn fourth text-danger"></div>
+        <input type="password" th:value="${loginForm.password}"
+          id="password" class="fadeIn third" name="password"
+          placeholder="Password" /> <input type="hidden"
+          name="${_csrf.parameterName}" value="${_csrf.token}" />
+        <div th:if="${#fields.hasErrors('password')}"
+          th:errors="*{password}" class="fadeIn fourth text-danger"></div>
+        <div th:if="${loginError}" th:text="${loginError}"
+          class="text-danger"></div>
+        <input type="submit" class="fadeIn fourth" value="Log In">
+      </form>
+      <!-- Remind Password -->
+      <div id="formFooter">
+        <a class="underlineHover" th:href="@{/user/register}">Create
+          new account?</a> <a class="underlineHover"
+          th:href="@{/password/reset}">Forgot Password?</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="ISO-8859-1">
+	<th:block th:replace="common/fragment ::html_headtag" />
+	<title>User | Create</title>
+	<style type="text/css">
+		.bg-color {
+			background-color: #f6f6f6;
+			color: #56baed !important;
+		}
+
+		.btn-bg-color {
+			background-color: #56baed !important;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="row justify-content-center mt-5">
+		<div class="col-md-4">
+			<div class="card">
+				<header class="card-header bg-color">
+					<h4 class="card-title mt-2 text-center">User Edit Form</h4>
+				</header>
+				<form action="#" th:action="${url} == null ? @{/user/editConfirm} : @{${url}}" th:object="${userForm}" method="POST">
+					<article class="card-body">
+						<div class="form-row">
+							<div class="col form-group">
+								<label>User Name</label> <input type="text" th:field="*{username}"
+									th:value="${userForm.username}" id="username" placeholder="Enter User Name"
+									class="form-control" /> <span th:if="${#fields.hasErrors('username')}"
+									th:errors="*{username}" class="text-danger"></span> <br>
+								<input type="hidden" th:field="*{id}" th:value="${userForm.id}" id="id" name="id"
+									class="form-control" />
+							</div>
+							<!-- form-group end.// -->
+						</div>
+						<!-- form-row end.// -->
+						<div class="form-group">
+							<label>Email address</label> <input type="text" th:field="*{email}"
+								th:value="${userForm.email}" id="email" placeholder="Enter email"
+								class="form-control" /> <small class="form-text text-muted">We'll never share
+								your email with anyone else.</small><br> <span th:if="${#fields.hasErrors('email')}"
+								th:errors="*{email}" class="text-danger"></span> <span th:if="${exist_email}"
+								th:text="${exist_email}" class="text-danger"></span>
+						</div>
+						<!-- form-group end.// -->
+						<div class="form-group">
+							<label class="form-check form-check-inline"> <input type="radio" id="male" name="male"
+									class="form-check-input" th:value="Male" th:field="*{gender}" /> <span
+									class="form-check-label">
+									Male </span>
+							</label> <label class="form-check form-check-inline"> <input type="radio" id="female"
+									name="female" class="form-check-input" th:value="Female" th:field="*{gender}" />
+								<span class="form-check-label">
+									Female</span>
+							</label>
+						</div>
+						<div th:if="${loginUser.type == '1'}" class="form-group">
+							<label>Type</label> <select th:field="*{type}" th:value="${userForm.type}"
+								class="form-control form-control-sm">
+								<option th:value="0" th:text="User"></option>
+								<option th:value="1" th:text="Admin"></option>
+							</select>
+						</div>
+						<div th:unless="${loginUser.type == '1'}" class="form-group">
+							<input type="hidden" th:field="*{type}" th:value="${userForm.type}" id="type"
+								class="form-control" />
+						</div>
+						<!-- form-group end.// -->
+						<input type="hidden" th:field="*{password}" th:value="${userForm.password}" id="password"
+							class="form-control" />
+					</article>
+					<div class="card-footer">
+						<div class="form-group mt-3 text-center">
+							<button type="submit" name="confirm" class="btn btn-bg-color">Confirm</button>
+							<button type="submit" name="back" class="btn btn-bg-color">Back</button>
+						</div>
+						<!-- form-group// -->
+					</div>
+				</form>
+			</div>
+			<!-- card.// -->
+		</div>
+		<!-- col.//-->
+	</div>
+</body>
+
+</html>

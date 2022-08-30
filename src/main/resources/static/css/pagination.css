@@ -1,0 +1,23 @@
+@charset "ISO-8859-1";
+
+.pagination {
+  display: inline-block;
+}
+
+.pagination a {
+  color: black;
+  float: left;
+  padding: 5px 5px;
+  text-decoration: none;
+}
+
+.pagination a.active {
+  background-color: #1589FF;
+  color: white;
+  border-radius: 3px;
+  width: 25px;
+}
+
+a:hover {
+  color: #E5E4E2;
+}

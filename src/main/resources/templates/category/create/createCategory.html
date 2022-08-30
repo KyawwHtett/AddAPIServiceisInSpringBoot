@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thmeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<th:block th:replace="common/fragment ::html_headtag" />
+<title>Category | Create</title>
+</head>
+<body>
+  <div class="row justify-content-center mt-5">
+    <div class="col-md-5">
+      <div class="card">
+        <div class="card-header bg-info text-white">
+          <div class="card-title">Create Category Form</div>
+        </div>
+        <div class="card-body">
+          <form th:action="@{/category/confirmCategory}"
+            th:object="${categoryForm}" method="POST">
+            <div class="mb-3 form-floating">
+              <input type="text" th:field="*{category_name}"
+                th:value="${categoryForm.category_name}"
+                name="category_name" class="form-control"
+                placeholder="Leave a category name here"
+                id="category-name" style="height: 100px;"></input> <label
+                for="category_name">Enter Category Name</label> <span
+                th:if="${#fields.hasErrors('category_name')}"
+                th:errors="*{category_name}" class="text-danger"></span>
+            </div>
+            <a th:href="@{/category/list}"><i
+              class="bi bi-arrow-return-left fs-4 text-muted fw-light"></i>
+            </a>
+            <button type="submit" class="btn btn-info text-white"
+              style="float: right;">Confirm</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

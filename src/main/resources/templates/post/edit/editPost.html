@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thmeleaf.org">
+
+<head>
+	<meta charset="ISO-8859-1">
+	<title>Post | Edit</title>
+	<th:block th:replace="common/fragment ::html_headtag" />
+</head>
+
+<body>
+	<div class="row justify-content-center mt-5">
+		<div class="col-md-5">
+			<div class="card">
+				<div class="card-header bg-info text-white">
+					<div class="card-title">Edit Post Form</div>
+				</div>
+				<div class="card-body">
+					<form th:action="${url} == null ? @{/post/editConfirm} : @{${url}}" th:object="${postForm}" method="POST">
+						<input type="hidden" th:field="*{post_id}" th:value="${postForm.post_id}" />
+						<div class="mb-3 form-floating">
+							<input type="text" th:field="*{title}" th:value="${postForm.title}" name="title"
+								class="form-control" placeholder="Leave a post title here" id="title"></input>
+							<label for="title">Enter Post Title</label>
+							<div>
+								<span th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="text-danger">
+								</span>
+							</div>
+						</div>
+						<div class="mb-3 form-floating">
+							<textarea class="form-control text-justify" th:field="*{description}"
+								th:value="${postForm.description}" name="description"
+								placeholder="Leave a description here" id="description"
+								style="height: 130px"></textarea>
+							<label for="description">Enter Post Description</label>
+							<div>
+								<span th:if="${#fields.hasErrors('description')}" th:errors="*{description}"
+									class="text-danger"></span>
+							</div>
+						</div>
+						<div class="mb-3">
+							<select th:field="*{categories.category_id}" th:value="${postForm.categories}"
+								class="form-select" id="dropDownList" aria-label="Default select example">
+								<option value="0">Select option</option>
+								<option th:each="category : ${listCategory}" th:value="${category.category_id}"
+									th:text="${category.category_name}"></option>
+							</select>
+							<div th:if="${NUllCAT != null}">
+								<span th:text="${NUllCAT}" class="text-danger"></span>
+							</div>
+						</div>
+						<div class="mb-3 form-check">
+							<input type="checkbox" th:field="*{flag}" th:value="${postForm.flag}" th:checked="*{flag}"
+								name="flag" class="form-check-input" id="flag">
+							<label class="form-check-label" for="flag">Public</label>
+						</div>
+						<a th:if="${profile != null}" th:href="@{/user/profile}"><i
+								class="bi bi-arrow-return-left fs-4 text-muted fw-light"></i>
+						</a>
+						<a th:unless="${profile != null}" th:href="@{/post/list}"><i class="bi bi-arrow-return-left fs-4 text-muted fw-light"></i>
+						</a>
+						<button type="submit" class="btn btn-info text-white" style="float: right;">Confirm</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

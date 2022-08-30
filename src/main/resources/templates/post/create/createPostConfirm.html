@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thmeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Post | Confirm</title>
+<th:block th:replace="common/fragment ::html_headtag" />
+</head>
+<body>
+	<div class="row justify-content-center mt-5">
+		<div class="col-md-5">
+			<div class="card">
+				<div class="card-header bg-info text-white">
+					<div class="card-title">Create Post Confirm Form</div>
+				</div>
+				<div class="card-body">
+					<form th:action="@{/post/save}" method="POST">
+						<div class="mb-3">
+							<label class="form-label">Post Title</label> <label
+								th:text="${session.POST_SESSION.title}" class="form-control"></label>
+						</div>
+						<div class="mb-3">
+							<label class="form-label">Post Description</label> <label
+								th:text="${session.POST_SESSION.description}"
+								class="form-control"></label>
+						</div>
+						<div class="mb-3">
+							<label class="form-label">Post Category</label> <label
+								th:text="${session.POST_SESSION.categories.category_name}"
+								class="form-control"></label>
+						</div>
+						<div class="mb-3 form-check">
+							<input type="checkbox" th:checked="${session.POST_SESSION.flag}"
+								name="flag" class="form-check-input" id="flag"
+								th:disabled="disabled"> <label class="form-check-label"
+								for="flag">Public</label>
+						</div>
+						<a th:href="@{/post/create}"><i
+							class="bi bi-arrow-return-left fs-4 text-muted fw-light"></i> </a>
+						<button type="submit" class="btn btn-info text-white"
+							style="float: right;">Confirm</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

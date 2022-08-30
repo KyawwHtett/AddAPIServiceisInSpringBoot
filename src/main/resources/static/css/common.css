@@ -1,0 +1,18 @@
+@charset "ISO-8859-1";
+
+div.dataTables_wrapper div.dataTables_paginate ul.pagination {
+  justify-content: center;
+}
+
+.bg-color {
+  background-color: #f6f6f6;
+  color: #56baed !important;
+}
+
+.btn-bg-color {
+  background-color: #56baed !important;
+}
+
+.text-justify {
+  text-align: justify;
+}
