@@ -7,6 +7,11 @@ import java.util.List;
 import com.cgm.bulletin.ojt.persistence.entity.Post;
 import com.cgm.bulletin.ojt.persistence.entity.User;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 /**
  * <h2>UserDto Class</h2>
  * <p>
@@ -16,6 +21,10 @@ import com.cgm.bulletin.ojt.persistence.entity.User;
  * @author KyawHtet
  *
  */
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserDto {
 	/**
 	 * <h2>id</h2>
@@ -88,260 +97,14 @@ public class UserDto {
 	 * </p>
 	 */
 	private Date deleted_at;
-	
+
+	/**
+	 * <h2>postList</h2>
+	 * <p>
+	 * postList
+	 * </p>
+	 */
 	private List<Post> postList = new ArrayList<Post>();
-
-	/**
-	 * <h2>getId</h2>
-	 * <p>
-	 * 
-	 * </p>
-	 *
-	 * @return
-	 * @return int
-	 */
-	public int getId() {
-		return id;
-	}
-
-	/**
-	 * <h2>setId</h2>
-	 * <p>
-	 * 
-	 * </p>
-	 *
-	 * @param id
-	 * @return void
-	 */
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	/**
-	 * <h2>getUsername</h2>
-	 * <p>
-	 * 
-	 * </p>
-	 *
-	 * @return
-	 * @return String
-	 */
-	public String getUsername() {
-		return username;
-	}
-
-	/**
-	 * <h2>setUsername</h2>
-	 * <p>
-	 * 
-	 * </p>
-	 *
-	 * @param username
-	 * @return void
-	 */
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-	/**
-	 * <h2>getEmail</h2>
-	 * <p>
-	 * 
-	 * </p>
-	 *
-	 * @return
-	 * @return String
-	 */
-	public String getEmail() {
-		return email;
-	}
-
-	/**
-	 * <h2>setEmail</h2>
-	 * <p>
-	 * 
-	 * </p>
-	 *
-	 * @param email
-	 * @return void
-	 */
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	/**
-	 * <h2>getPassword</h2>
-	 * <p>
-	 * 
-	 * </p>
-	 *
-	 * @return
-	 * @return String
-	 */
-	public String getPassword() {
-		return password;
-	}
-
-	/**
-	 * <h2>setPassword</h2>
-	 * <p>
-	 * 
-	 * </p>
-	 *
-	 * @param password
-	 * @return void
-	 */
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	/**
-	 * <h2>getGender</h2>
-	 * <p>
-	 * 
-	 * </p>
-	 *
-	 * @return
-	 * @return String
-	 */
-	public String getGender() {
-		return gender;
-	}
-
-	/**
-	 * <h2>setGender</h2>
-	 * <p>
-	 * 
-	 * </p>
-	 *
-	 * @param gender
-	 * @return void
-	 */
-	public void setGender(String gender) {
-		this.gender = gender;
-	}
-
-	/**
-	 * <h2>getType</h2>
-	 * <p>
-	 * 
-	 * </p>
-	 *
-	 * @return
-	 * @return String
-	 */
-	public String getType() {
-		return type;
-	}
-
-	/**
-	 * <h2>setType</h2>
-	 * <p>
-	 * 
-	 * </p>
-	 *
-	 * @param type
-	 * @return void
-	 */
-	public void setType(String type) {
-		this.type = type;
-	}
-
-	/**
-	 * <h2>getCreated_at</h2>
-	 * <p>
-	 * 
-	 * </p>
-	 *
-	 * @return
-	 * @return Date
-	 */
-	public Date getCreated_at() {
-		return created_at;
-	}
-
-	/**
-	 * <h2>setCreated_at</h2>
-	 * <p>
-	 * 
-	 * </p>
-	 *
-	 * @param created_at
-	 * @return void
-	 */
-	public void setCreated_at(Date created_at) {
-		this.created_at = created_at;
-	}
-
-	/**
-	 * <h2>getUpdated_at</h2>
-	 * <p>
-	 * 
-	 * </p>
-	 *
-	 * @return
-	 * @return Date
-	 */
-	public Date getUpdated_at() {
-		return updated_at;
-	}
-
-	/**
-	 * <h2>setUpdated_at</h2>
-	 * <p>
-	 * 
-	 * </p>
-	 *
-	 * @param updated_at
-	 * @return void
-	 */
-	public void setUpdated_at(Date updated_at) {
-		this.updated_at = updated_at;
-	}
-
-	/**
-	 * <h2>getDeleted_at</h2>
-	 * <p>
-	 * 
-	 * </p>
-	 *
-	 * @return
-	 * @return Date
-	 */
-	public Date getDeleted_at() {
-		return deleted_at;
-	}
-
-	/**
-	 * <h2>setDeleted_at</h2>
-	 * <p>
-	 * 
-	 * </p>
-	 *
-	 * @param deleted_at
-	 * @return void
-	 */
-	public void setDeleted_at(Date deleted_at) {
-		this.deleted_at = deleted_at;
-	}
-
-	public List<Post> getPostList() {
-		return postList;
-	}
-
-	public void setPostList(List<Post> postList) {
-		this.postList = postList;
-	}
-
-	/**
-	 * <h2>Constructor for UserDto</h2>
-	 * <p>
-	 * Constructor for UserDto
-	 * </p>
-	 */
-	public UserDto() {
-		super();
-	}
 
 	/**
 	 * <h2>Constructor for UserDto</h2>

@@ -453,6 +453,15 @@ public class PostController {
 		return model;
 	}
 
+	/**
+	 * <h2>isProfile</h2>
+	 * <p>
+	 * 
+	 * </p>
+	 *
+	 * @return
+	 * @return Boolean
+	 */
 	private Boolean isProfile() {
 		if (this.request.getServletPath().contains("/profile")) {
 			return true;

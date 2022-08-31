@@ -36,15 +36,48 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 
+/**
+ * <h2>ApiPostController Class</h2>
+ * <p>
+ * Process for Displaying ApiPostController
+ * </p>
+ * 
+ * @author KyawHtet
+ *
+ */
 @RestController
 @RequestMapping(value = "/api/post")
 public class ApiPostController {
+	/**
+	 * <h2>apiPostService</h2>
+	 * <p>
+	 * apiPostService
+	 * </p>
+	 */
 	@Autowired
 	private ApiPostService apiPostService;
 
+	/**
+	 * <h2>categoryService</h2>
+	 * <p>
+	 * categoryService
+	 * </p>
+	 */
 	@Autowired
 	private CategoryService categoryService;
 
+	/**
+	 * <h2>listPosts</h2>
+	 * <p>
+	 * 
+	 * </p>
+	 *
+	 * @param page
+	 * @param size
+	 * @param request
+	 * @return
+	 * @return ResponseEntity<Page<PostResponse>>
+	 */
 	@GetMapping(value = "/list")
 	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
 	public ResponseEntity<Page<PostResponse>> listPosts(@RequestParam("page") Optional<Integer> page,
@@ -54,6 +87,17 @@ public class ApiPostController {
 		return new ResponseEntity<>(listPosts, HttpStatus.OK);
 	}
 
+	/**
+	 * <h2>savePost</h2>
+	 * <p>
+	 * 
+	 * </p>
+	 *
+	 * @param postForm
+	 * @param result
+	 * @return
+	 * @return ResponseEntity<PostResponse>
+	 */
 	@PostMapping("/create")
 	public ResponseEntity<PostResponse> savePost(@RequestBody @Valid PostForm postForm, BindingResult result) {
 		if (result.hasErrors()) {
@@ -65,6 +109,17 @@ public class ApiPostController {
 		return new ResponseEntity<>(postResponse, HttpStatus.OK);
 	}
 
+	/**
+	 * <h2>editPost</h2>
+	 * <p>
+	 * 
+	 * </p>
+	 *
+	 * @param postId
+	 * @return
+	 * @throws JsonProcessingException
+	 * @return ResponseEntity<String>
+	 */
 	@GetMapping("/edit/{id}")
 	public ResponseEntity<String> editPost(@PathVariable("id") int postId) throws JsonProcessingException {
 		PostResponse postResponse = this.apiPostService.doGetPostById(postId);
@@ -73,6 +128,18 @@ public class ApiPostController {
 		return new ResponseEntity<>(jsonString, postResponse == null ? HttpStatus.NOT_FOUND : HttpStatus.FOUND);
 	}
 
+	/**
+	 * <h2>updatePost</h2>
+	 * <p>
+	 * 
+	 * </p>
+	 *
+	 * @param id
+	 * @param postRequest
+	 * @param result
+	 * @return
+	 * @return ResponseEntity<PostResponse>
+	 */
 	@PostMapping("/update")
 	public ResponseEntity<PostResponse> updatePost(@RequestParam("id") int id,
 	        @RequestBody @Valid PostRequest postRequest, BindingResult result) {
@@ -84,12 +151,35 @@ public class ApiPostController {
 		return new ResponseEntity<>(postResponse, HttpStatus.OK);
 	}
 
+	/**
+	 * <h2>downloadPost</h2>
+	 * <p>
+	 * 
+	 * </p>
+	 *
+	 * @param response
+	 * @return
+	 * @throws IOException
+	 * @return ResponseEntity<?>
+	 */
 	@GetMapping("/download")
 	public ResponseEntity<?> downloadPost(HttpServletResponse response) throws IOException {
 		this.apiPostService.doDownloadPost(response);
 		return null;
 	}
 
+	/**
+	 * <h2>searchPost</h2>
+	 * <p>
+	 * 
+	 * </p>
+	 *
+	 * @param postRequest
+	 * @param page
+	 * @param size
+	 * @return
+	 * @return ResponseEntity<?>
+	 */
 	@GetMapping("/search")
 	public ResponseEntity<?> searchPost(@RequestBody PostRequest postRequest,
 	        @RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size) {
@@ -97,6 +187,19 @@ public class ApiPostController {
 		return new ResponseEntity<>(listPosts, HttpStatus.OK);
 	}
 
+	/**
+	 * <h2>searchByCategory</h2>
+	 * <p>
+	 * 
+	 * </p>
+	 *
+	 * @param categoryId
+	 * @param model
+	 * @param page
+	 * @param size
+	 * @return
+	 * @return ResponseEntity<?>
+	 */
 	@GetMapping(value = "/search/{id}")
 	public ResponseEntity<?> searchByCategory(@PathVariable("id") int categoryId, Model model,
 	        @RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size) {
@@ -104,12 +207,33 @@ public class ApiPostController {
 		return new ResponseEntity<>(listPosts, HttpStatus.OK);
 	}
 
+	/**
+	 * <h2>deletePost</h2>
+	 * <p>
+	 * 
+	 * </p>
+	 *
+	 * @param id
+	 * @return
+	 * @return ResponseEntity<?>
+	 */
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<?> deletePost(@PathVariable("id") int id) {
 		ApiResponse apiResponse = this.apiPostService.doDeletePost(id);
 		return new ResponseEntity<>(apiResponse, apiResponse.getSuccess() ? HttpStatus.OK : HttpStatus.NOT_FOUND);
 	}
 
+	/**
+	 * <h2>getPostForm</h2>
+	 * <p>
+	 * 
+	 * </p>
+	 *
+	 * @param postForm
+	 * @param categoryList
+	 * @return
+	 * @return PostForm
+	 */
 	private PostForm getPostForm(PostForm postForm, List<Category> categoryList) {
 		for (Category category : categoryList) {
 			if (category.getCategory_id() == postForm.getCategories().getCategory_id()) {
@@ -119,6 +243,19 @@ public class ApiPostController {
 		return postForm;
 	}
 
+	/**
+	 * <h2>postListPaginatedModel</h2>
+	 * <p>
+	 * 
+	 * </p>
+	 *
+	 * @param page
+	 * @param size
+	 * @param search
+	 * @param categoryId
+	 * @return
+	 * @return Page<PostResponse>
+	 */
 	private Page<PostResponse> postListPaginatedModel(Optional<Integer> page, Optional<Integer> size, String search,
 	        int categoryId) {
 		int currentPage = page.orElse(1);

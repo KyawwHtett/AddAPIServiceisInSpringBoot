@@ -75,5 +75,16 @@ public interface CategoryService {
 	 */
 	void doUpdateCategory(CategoryForm category);
 
+	/**
+	 * <h2> doImportCategory</h2>
+	 * <p>
+	 * 
+	 * </p>
+	 *
+	 * @param file
+	 * @return
+	 * @throws IOException
+	 * @return String
+	 */
 	public String doImportCategory(MultipartFile file) throws IOException;
 }

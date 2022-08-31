@@ -12,109 +12,120 @@ import com.cgm.bulletin.ojt.persistence.entity.User;
 
 import lombok.Data;
 
+/**
+ * <h2>UserResponse Class</h2>
+ * <p>
+ * Process for Displaying UserResponse
+ * </p>
+ * 
+ * @author KyawHtet
+ *
+ */
 @Data
 public class UserResponse {
+	/**
+	 * <h2>id</h2>
+	 * <p>
+	 * id
+	 * </p>
+	 */
 	private int id;
 
+	/**
+	 * <h2>username</h2>
+	 * <p>
+	 * username
+	 * </p>
+	 */
 	@NotBlank
 	private String username;
 
+	/**
+	 * <h2>email</h2>
+	 * <p>
+	 * email
+	 * </p>
+	 */
 	@NotBlank
 	@Email
 	private String email;
 
+	/**
+	 * <h2>password</h2>
+	 * <p>
+	 * password
+	 * </p>
+	 */
 	@NotBlank
 	private String password;
 
+	/**
+	 * <h2>gender</h2>
+	 * <p>
+	 * gender
+	 * </p>
+	 */
 	@NotBlank
 	private String gender;
 
+	/**
+	 * <h2>type</h2>
+	 * <p>
+	 * type
+	 * </p>
+	 */
 	private String type;
 
+	/**
+	 * <h2>created_at</h2>
+	 * <p>
+	 * created_at
+	 * </p>
+	 */
 	private Date created_at;
 
+	/**
+	 * <h2>updated_at</h2>
+	 * <p>
+	 * updated_at
+	 * </p>
+	 */
 	private Date updated_at;
 
+	/**
+	 * <h2>deleted_at</h2>
+	 * <p>
+	 * deleted_at
+	 * </p>
+	 */
 	private Date deleted_at;
-	
+
+	/**
+	 * <h2>listPost</h2>
+	 * <p>
+	 * listPost
+	 * </p>
+	 */
 	private List<PostResponse> listPost = new ArrayList<PostResponse>();
 
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public String getGender() {
-		return gender;
-	}
-
-	public void setGender(String gender) {
-		this.gender = gender;
-	}
-
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
-	}
-
-	public Date getCreated_at() {
-		return created_at;
-	}
-
-	public void setCreated_at(Date created_at) {
-		this.created_at = created_at;
-	}
-
-	public Date getUpdated_at() {
-		return updated_at;
-	}
-
-	public void setUpdated_at(Date updated_at) {
-		this.updated_at = updated_at;
-	}
-
-	public Date getDeleted_at() {
-		return deleted_at;
-	}
-
-	public void setDeleted_at(Date deleted_at) {
-		this.deleted_at = deleted_at;
-	}
-
+	/**
+	 * <h2>Constructor for UserResponse</h2>
+	 * <p>
+	 * Constructor for UserResponse
+	 * </p>
+	 */
 	public UserResponse() {
 		super();
 	}
 
+	/**
+	 * <h2>Constructor for UserResponse</h2>
+	 * <p>
+	 * Constructor for UserResponse
+	 * </p>
+	 * 
+	 * @param user
+	 */
 	public UserResponse(User user) {
 		super();
 		this.id = user.getId();
@@ -128,6 +139,14 @@ public class UserResponse {
 		this.deleted_at = user.getDeleted_at();
 	}
 
+	/**
+	 * <h2>Constructor for UserResponse</h2>
+	 * <p>
+	 * Constructor for UserResponse
+	 * </p>
+	 * 
+	 * @param loginUser
+	 */
 	public UserResponse(UserDto loginUser) {
 		super();
 		this.id = loginUser.getId();

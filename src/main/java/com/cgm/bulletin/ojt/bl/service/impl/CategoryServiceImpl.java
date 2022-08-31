@@ -43,7 +43,13 @@ public class CategoryServiceImpl implements CategoryService {
 	 */
 	@Autowired
 	private CategoryDao categoryDao;
-	
+
+	/**
+	 * <h2>sessionFactory</h2>
+	 * <p>
+	 * sessionFactory
+	 * </p>
+	 */
 	@Autowired
 	private SessionFactory sessionFactory;
 
@@ -122,6 +128,16 @@ public class CategoryServiceImpl implements CategoryService {
 		this.categoryDao.dbUpdateCategory(category);
 	}
 
+	/**
+	 * <h2>doImportCategory</h2>
+	 * <p>
+	 * 
+	 * </p>
+	 * 
+	 * @param file
+	 * @return
+	 * @throws IOException
+	 */
 	@Override
 	public String doImportCategory(MultipartFile file) throws IOException {
 		String errorMsg = this.ValidateFile(file);
@@ -144,7 +160,18 @@ public class CategoryServiceImpl implements CategoryService {
 		workbook.close();
 		return "File Upload Successful";
 	}
-	
+
+	/**
+	 * <h2>ValidateFile</h2>
+	 * <p>
+	 * 
+	 * </p>
+	 *
+	 * @param file
+	 * @return
+	 * @throws IOException
+	 * @return String
+	 */
 	@SuppressWarnings("resource")
 	private String ValidateFile(MultipartFile file) throws IOException {
 		// check if file is null

@@ -28,7 +28,16 @@ public class BulletinBoardSpringBoot1Application {
 	public static void main(String[] args) {
 		SpringApplication.run(BulletinBoardSpringBoot1Application.class, args);
 	}
-	
+
+	/**
+	 * <h2>modelMapper</h2>
+	 * <p>
+	 * 
+	 * </p>
+	 *
+	 * @return
+	 * @return ModelMapper
+	 */
 	@Bean
 	public ModelMapper modelMapper() {
 		return new ModelMapper();

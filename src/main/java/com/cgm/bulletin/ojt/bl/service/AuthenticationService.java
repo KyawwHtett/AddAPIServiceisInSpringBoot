@@ -47,7 +47,17 @@ public interface AuthenticationService {
 	 * @return void
 	 */
 	void doLoadAuth(String email);
-	
+
+	/**
+	 * <h2>doApiLoadAuth</h2>
+	 * <p>
+	 * 
+	 * </p>
+	 *
+	 * @param email
+	 * @return
+	 * @return String
+	 */
 	public String doApiLoadAuth(String email);
 
 	/**
@@ -61,5 +71,16 @@ public interface AuthenticationService {
 	 */
 	void doLogout(HttpServletRequest request);
 
+	/**
+	 * <h2>doApiLogout</h2>
+	 * <p>
+	 * 
+	 * </p>
+	 *
+	 * @param request
+	 * @param response
+	 * @return
+	 * @return String
+	 */
 	public String doApiLogout(HttpServletRequest request, HttpServletResponse response);
 }

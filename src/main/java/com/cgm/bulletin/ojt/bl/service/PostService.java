@@ -43,7 +43,20 @@ public interface PostService {
 	 * @return Page<PostDto>
 	 */
 	Page<PostDto> findPaginated(Pageable pageable, String search, int categoryId);
-	
+
+	/**
+	 * <h2>findUserProfilePaginated</h2>
+	 * <p>
+	 * 
+	 * </p>
+	 *
+	 * @param pageable
+	 * @param search
+	 * @param categoryId
+	 * @param userId
+	 * @return
+	 * @return Page<PostDto>
+	 */
 	Page<PostDto> findUserProfilePaginated(Pageable pageable, String search, int categoryId, int userId);
 
 	/**
@@ -91,5 +104,15 @@ public interface PostService {
 	 */
 	void doDownloadPost(HttpServletResponse response) throws IOException;
 
+	/**
+	 * <h2>doGetCountByUserId</h2>
+	 * <p>
+	 * 
+	 * </p>
+	 *
+	 * @param userId
+	 * @return
+	 * @return int
+	 */
 	int doGetCountByUserId(int userId);
 }

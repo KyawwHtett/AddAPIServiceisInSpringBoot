@@ -18,6 +18,11 @@ import javax.validation.constraints.NotEmpty;
 import com.cgm.bulletin.ojt.payload.request.CategoryRequest;
 import com.cgm.bulletin.ojt.web.form.CategoryForm;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 /**
  * <h2>Category Class</h2>
  * <p>
@@ -27,6 +32,10 @@ import com.cgm.bulletin.ojt.web.form.CategoryForm;
  * @author KyawHtet
  *
  */
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "categories")
 public class Category implements Serializable {
@@ -78,120 +87,6 @@ public class Category implements Serializable {
 	private List<Post> posts = new ArrayList<Post>();
 
 	/**
-	 * <h2>getCategory_id</h2>
-	 * <p>
-	 * 
-	 * </p>
-	 *
-	 * @return
-	 * @return int
-	 */
-	public int getCategory_id() {
-		return category_id;
-	}
-
-	/**
-	 * <h2>setCategory_id</h2>
-	 * <p>
-	 * 
-	 * </p>
-	 *
-	 * @param category_id
-	 * @return void
-	 */
-	public void setCategory_id(int category_id) {
-		this.category_id = category_id;
-	}
-
-	/**
-	 * <h2>getCategory_name</h2>
-	 * <p>
-	 * 
-	 * </p>
-	 *
-	 * @return
-	 * @return String
-	 */
-	public String getCategory_name() {
-		return category_name;
-	}
-
-	/**
-	 * <h2>setCategory_name</h2>
-	 * <p>
-	 * 
-	 * </p>
-	 *
-	 * @param category_name
-	 * @return void
-	 */
-	public void setCategory_name(String category_name) {
-		this.category_name = category_name;
-	}
-
-	/**
-	 * <h2>getDeleted_at</h2>
-	 * <p>
-	 * 
-	 * </p>
-	 *
-	 * @return
-	 * @return Date
-	 */
-	public Date getDeleted_at() {
-		return deleted_at;
-	}
-
-	/**
-	 * <h2>setDeleted_at</h2>
-	 * <p>
-	 * 
-	 * </p>
-	 *
-	 * @param deleted_at
-	 * @return void
-	 */
-	public void setDeleted_at(Date deleted_at) {
-		this.deleted_at = deleted_at;
-	}
-
-	/**
-	 * <h2>getPosts</h2>
-	 * <p>
-	 * 
-	 * </p>
-	 *
-	 * @return
-	 * @return List<Post>
-	 */
-	public List<Post> getPosts() {
-		return posts;
-	}
-
-	/**
-	 * <h2>setPosts</h2>
-	 * <p>
-	 * 
-	 * </p>
-	 *
-	 * @param posts
-	 * @return void
-	 */
-	public void setPosts(List<Post> posts) {
-		this.posts = posts;
-	}
-
-	/**
-	 * <h2>Constructor for Category</h2>
-	 * <p>
-	 * Constructor for Category
-	 * </p>
-	 */
-	public Category() {
-		super();
-	}
-
-	/**
 	 * <h2>Constructor for Category</h2>
 	 * <p>
 	 * Constructor for Category
@@ -207,6 +102,14 @@ public class Category implements Serializable {
 		this.posts = categoryForm.getPosts();
 	}
 
+	/**
+	 * <h2>Constructor for Category</h2>
+	 * <p>
+	 * Constructor for Category
+	 * </p>
+	 * 
+	 * @param categoryRequest
+	 */
 	public Category(CategoryRequest categoryRequest) {
 		this.category_id = categoryRequest.getCategory_id();
 		this.category_name = categoryRequest.getCategory_name();

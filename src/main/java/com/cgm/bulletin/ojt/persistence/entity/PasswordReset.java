@@ -9,6 +9,11 @@ import javax.persistence.Table;
 
 import com.cgm.bulletin.ojt.web.form.PasswordResetSentMailForm;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 /**
  * <h2>PasswordReset Class</h2>
  * <p>
@@ -18,6 +23,10 @@ import com.cgm.bulletin.ojt.web.form.PasswordResetSentMailForm;
  * @author KyawHtet
  *
  */
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "password_reset")
 public class PasswordReset {
@@ -57,120 +66,6 @@ public class PasswordReset {
 	 */
 	@Column(name = "expired_at")
 	private Timestamp expired_at;
-
-	/**
-	 * <h2>getUser_email</h2>
-	 * <p>
-	 * 
-	 * </p>
-	 *
-	 * @return
-	 * @return String
-	 */
-	public String getUser_email() {
-		return user_email;
-	}
-
-	/**
-	 * <h2>setUser_email</h2>
-	 * <p>
-	 * 
-	 * </p>
-	 *
-	 * @param user_email
-	 * @return void
-	 */
-	public void setUser_email(String user_email) {
-		this.user_email = user_email;
-	}
-
-	/**
-	 * <h2>getToken</h2>
-	 * <p>
-	 * 
-	 * </p>
-	 *
-	 * @return
-	 * @return String
-	 */
-	public String getToken() {
-		return token;
-	}
-
-	/**
-	 * <h2>setToken</h2>
-	 * <p>
-	 * 
-	 * </p>
-	 *
-	 * @param token
-	 * @return void
-	 */
-	public void setToken(String token) {
-		this.token = token;
-	}
-
-	/**
-	 * <h2>getCreated_at</h2>
-	 * <p>
-	 * 
-	 * </p>
-	 *
-	 * @return
-	 * @return Timestamp
-	 */
-	public Timestamp getCreated_at() {
-		return created_at;
-	}
-
-	/**
-	 * <h2>setCreated_at</h2>
-	 * <p>
-	 * 
-	 * </p>
-	 *
-	 * @param created_at
-	 * @return void
-	 */
-	public void setCreated_at(Timestamp created_at) {
-		this.created_at = created_at;
-	}
-
-	/**
-	 * <h2>getExpired_at</h2>
-	 * <p>
-	 * 
-	 * </p>
-	 *
-	 * @return
-	 * @return Timestamp
-	 */
-	public Timestamp getExpired_at() {
-		return expired_at;
-	}
-
-	/**
-	 * <h2>setExpired_at</h2>
-	 * <p>
-	 * 
-	 * </p>
-	 *
-	 * @param expired_at
-	 * @return void
-	 */
-	public void setExpired_at(Timestamp expired_at) {
-		this.expired_at = expired_at;
-	}
-
-	/**
-	 * <h2>Constructor for PasswordReset</h2>
-	 * <p>
-	 * Constructor for PasswordReset
-	 * </p>
-	 */
-	public PasswordReset() {
-		super();
-	}
 
 	/**
 	 * <h2>Constructor for PasswordReset</h2>

@@ -47,7 +47,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 	@Autowired
 	@Qualifier("userDetailsServiceImpl")
 	private UserDetailsService userDetailsService;
-	
+
 	@Autowired
 	private JwtTokenProvider jwtTokenProvider;
 
@@ -103,7 +103,16 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 		        userDetails.getPassword(), userDetails.getAuthorities());
 		SecurityContextHolder.getContext().setAuthentication(auth);
 	}
-	
+
+	/**
+	 * <h2>doApiLoadAuth</h2>
+	 * <p>
+	 * 
+	 * </p>
+	 * 
+	 * @param email
+	 * @return
+	 */
 	@Override
 	public String doApiLoadAuth(String email) {
 		UserDetails userDetails = userDetailsService.loadUserByUsername(email);
@@ -129,7 +138,17 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 		}
 		request.getSession(true).invalidate();
 	}
-	
+
+	/**
+	 * <h2>doApiLogout</h2>
+	 * <p>
+	 * 
+	 * </p>
+	 * 
+	 * @param request
+	 * @param response
+	 * @return
+	 */
 	@Override
 	public String doApiLogout(HttpServletRequest request, HttpServletResponse response) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();

@@ -20,17 +20,56 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.cgm.bulletin.ojt.bl.service.UserDetailsServiceImpl;
 
+/**
+ * <h2>JwtAuthenticationFilter Class</h2>
+ * <p>
+ * Process for Displaying JwtAuthenticationFilter
+ * </p>
+ * 
+ * @author KyawHtet
+ *
+ */
 @Service
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
+	/**
+	 * <h2>LOGGER</h2>
+	 * <p>
+	 * LOGGER
+	 * </p>
+	 */
 	private static final Logger LOGGER = LoggerFactory.getLogger(JwtAuthenticationFilter.class);
+	/**
+	 * <h2>tokenProvider</h2>
+	 * <p>
+	 * tokenProvider
+	 * </p>
+	 */
 	@Autowired
 	private JwtTokenProvider tokenProvider;
+	/**
+	 * <h2>userDetailsServiceImpl</h2>
+	 * <p>
+	 * userDetailsServiceImpl
+	 * </p>
+	 */
 	@Autowired
 	private UserDetailsServiceImpl userDetailsServiceImpl;
 
+	/**
+	 * <h2>doFilterInternal</h2>
+	 * <p>
+	 * 
+	 * </p>
+	 * 
+	 * @param request
+	 * @param response
+	 * @param filterChain
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
-			throws ServletException, IOException {
+	        throws ServletException, IOException {
 		try {
 			String jwt = getJwtFromRequest(request);
 
@@ -38,8 +77,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 				Long userId = tokenProvider.getUserIdFromJWT(jwt);
 
 				UserDetails userDetails = userDetailsServiceImpl.loadUserById(userId);
-				UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null,
-						userDetails.getAuthorities());
+				UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
+				        userDetails, null, userDetails.getAuthorities());
 				authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
 				SecurityContextHolder.getContext().setAuthentication(authenticationToken);
@@ -50,6 +89,16 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 		filterChain.doFilter(request, response);
 	}
 
+	/**
+	 * <h2>getJwtFromRequest</h2>
+	 * <p>
+	 * 
+	 * </p>
+	 *
+	 * @param request
+	 * @return
+	 * @return String
+	 */
 	private String getJwtFromRequest(HttpServletRequest request) {
 		String bearerToken = request.getHeader("Authorization");
 		if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {

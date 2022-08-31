@@ -71,7 +71,13 @@ public class PostServiceImpl implements PostService {
 	 */
 	@Autowired
 	private UserDao userDao;
-	
+
+	/**
+	 * <h2>authService</h2>
+	 * <p>
+	 * authService
+	 * </p>
+	 */
 	@Autowired
 	private AuthenticationService authService;
 
@@ -148,7 +154,19 @@ public class PostServiceImpl implements PostService {
 		Page<PostDto> postPage = new PageImpl<PostDto>(list, PageRequest.of(currentPage, pageSize), posts.size());
 		return postPage;
 	}
-	
+
+	/**
+	 * <h2>findUserProfilePaginated</h2>
+	 * <p>
+	 * 
+	 * </p>
+	 * 
+	 * @param pageable
+	 * @param search
+	 * @param categoryId
+	 * @param userId
+	 * @return
+	 */
 	@Override
 	public Page<PostDto> findUserProfilePaginated(Pageable pageable, String search, int categoryId, int userId) {
 		int pageSize = pageable.getPageSize();
@@ -332,6 +350,15 @@ public class PostServiceImpl implements PostService {
 		}
 	}
 
+	/**
+	 * <h2>doGetCountByUserId</h2>
+	 * <p>
+	 * 
+	 * </p>
+	 * 
+	 * @param userId
+	 * @return
+	 */
 	@Override
 	public int doGetCountByUserId(int userId) {
 		// TODO Auto-generated method stub

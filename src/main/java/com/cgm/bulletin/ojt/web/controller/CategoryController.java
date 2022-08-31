@@ -222,6 +222,18 @@ public class CategoryController {
 		return new ModelAndView("redirect:/category/list");
 	}
 
+	/**
+	 * <h2>importCategory</h2>
+	 * <p>
+	 * 
+	 * </p>
+	 *
+	 * @param file
+	 * @param redirectAttributes
+	 * @return
+	 * @throws IOException
+	 * @return ModelAndView
+	 */
 	@RequestMapping(value = "/category/import", method = RequestMethod.POST)
 	public ModelAndView importCategory(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes)
 	        throws IOException {

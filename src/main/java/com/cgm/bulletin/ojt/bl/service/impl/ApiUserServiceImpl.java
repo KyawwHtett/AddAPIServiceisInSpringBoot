@@ -17,17 +17,52 @@ import com.cgm.bulletin.ojt.payload.response.UserResponse;
 import com.cgm.bulletin.ojt.persistence.dao.UserDao;
 import com.cgm.bulletin.ojt.persistence.entity.User;
 
+/**
+ * <h2>ApiUserServiceImpl Class</h2>
+ * <p>
+ * Process for Displaying ApiUserServiceImpl
+ * </p>
+ * 
+ * @author KyawHtet
+ *
+ */
 @Service
 public class ApiUserServiceImpl implements ApiUserService {
+	/**
+	 * <h2>userDao</h2>
+	 * <p>
+	 * userDao
+	 * </p>
+	 */
 	@Autowired
 	private UserDao userDao;
 
+	/**
+	 * <h2>authService</h2>
+	 * <p>
+	 * authService
+	 * </p>
+	 */
 	@Autowired
 	private AuthenticationService authService;
 
+	/**
+	 * <h2>passwordEncoder</h2>
+	 * <p>
+	 * passwordEncoder
+	 * </p>
+	 */
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
+	/**
+	 * <h2>findAll</h2>
+	 * <p>
+	 * 
+	 * </p>
+	 * 
+	 * @return
+	 */
 	@Override
 	public List<UserResponse> findAll() {
 		List<User> users = this.userDao.findAll();
@@ -39,6 +74,15 @@ public class ApiUserServiceImpl implements ApiUserService {
 		return userResList;
 	}
 
+	/**
+	 * <h2>doApiGetUserById</h2>
+	 * <p>
+	 * 
+	 * </p>
+	 * 
+	 * @param userId
+	 * @return
+	 */
 	@Override
 	public UserResponse doApiGetUserById(int userId) {
 		UserDto userDto = this.authService.doGetLoggedInUser();
@@ -53,6 +97,15 @@ public class ApiUserServiceImpl implements ApiUserService {
 		return null;
 	}
 
+	/**
+	 * <h2>doApiIsEmailExist</h2>
+	 * <p>
+	 * 
+	 * </p>
+	 * 
+	 * @param email
+	 * @return
+	 */
 	@Override
 	public boolean doApiIsEmailExist(String email) {
 		boolean result = false;
@@ -61,6 +114,15 @@ public class ApiUserServiceImpl implements ApiUserService {
 		return result;
 	}
 
+	/**
+	 * <h2>doApiSaveUser</h2>
+	 * <p>
+	 * 
+	 * </p>
+	 * 
+	 * @param userRequest
+	 * @return
+	 */
 	@Override
 	public UserResponse doApiSaveUser(UserRequest userRequest) {
 		userRequest.setPassword(passwordEncoder.encode(userRequest.getPassword()));
@@ -69,6 +131,15 @@ public class ApiUserServiceImpl implements ApiUserService {
 		return new UserResponse(this.userDao.dbGetUserById(this.userDao.dbApiSaveUser(user)));
 	}
 
+	/**
+	 * <h2>doApiUpdateUser</h2>
+	 * <p>
+	 * 
+	 * </p>
+	 * 
+	 * @param userRequest
+	 * @return
+	 */
 	@Override
 	public UserResponse doApiUpdateUser(UserRequest userRequest) {
 		User user = this.userDao.dbGetUserById(userRequest.getId());
@@ -84,6 +155,15 @@ public class ApiUserServiceImpl implements ApiUserService {
 		return null;
 	}
 
+	/**
+	 * <h2>doDeleteUser</h2>
+	 * <p>
+	 * 
+	 * </p>
+	 * 
+	 * @param userId
+	 * @return
+	 */
 	@Override
 	public ApiResponse doDeleteUser(int userId) {
 		User user = this.userDao.dbGetUserById(userId);

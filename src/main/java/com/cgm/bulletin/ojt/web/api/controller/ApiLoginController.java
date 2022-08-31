@@ -22,23 +22,69 @@ import com.cgm.bulletin.ojt.payload.response.ApiResponse;
 import com.cgm.bulletin.ojt.payload.response.JwtAuthenticationResponse;
 import com.cgm.bulletin.ojt.persistence.entity.User;
 
+/**
+ * <h2>ApiLoginController Class</h2>
+ * <p>
+ * Process for Displaying ApiLoginController
+ * </p>
+ * 
+ * @author KyawHtet
+ *
+ */
 @RestController
 @RequestMapping(value = "/api/auth")
 public class ApiLoginController {
+	/**
+	 * <h2>userService</h2>
+	 * <p>
+	 * userService
+	 * </p>
+	 */
 	@Autowired
 	private UserService userService;
 
+	/**
+	 * <h2>authService</h2>
+	 * <p>
+	 * authService
+	 * </p>
+	 */
 	@Autowired
 	private AuthenticationService authService;
 
+	/**
+	 * <h2>passwordEncoder</h2>
+	 * <p>
+	 * passwordEncoder
+	 * </p>
+	 */
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
+	/**
+	 * <h2>init</h2>
+	 * <p>
+	 * 
+	 * </p>
+	 *
+	 * @return
+	 * @return List<User>
+	 */
 	@GetMapping(value = { "/", "/login" })
 	public List<User> init() {
 		return this.userService.findAll();
 	}
 
+	/**
+	 * <h2>authenticateUser</h2>
+	 * <p>
+	 * 
+	 * </p>
+	 *
+	 * @param loginRequest
+	 * @return
+	 * @return ResponseEntity<?>
+	 */
 	@PostMapping("/login")
 	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 		if (!this.userService.doIsEmailExist(loginRequest.getEmail())) {
@@ -53,28 +99,4 @@ public class ApiLoginController {
 		String jwt = this.authService.doApiLoadAuth(loginRequest.getEmail());
 		return ResponseEntity.ok(new JwtAuthenticationResponse(jwt));
 	}
-//    @PostMapping(value = "/login")
-//    public String login(@RequestParam String email,@RequestParam String password ) {
-//        LoginForm loginForm = new LoginForm();
-//        loginForm.setEmail(email);
-//        loginForm.setPassword(password);
-//        
-//        if (!this.userService.doIsEmailExist(loginForm.getEmail())) {
-//			return "Email doesn't exist";
-//		}
-//		UserDto userDetail = this.userService.doFindUserByEmail(loginForm.getEmail());
-//
-//		boolean passwordMatch = passwordEncoder.matches(loginForm.getPassword(), userDetail.getPassword());
-//		if (!passwordMatch) {
-//			return "Invalid Login! Email and Password doesn't match!";
-//		}
-//        this.authService.doLoadAuth(loginForm.getEmail());
-//		if (this.authService.doIsLoggedIn()) {
-//            System.out.println("Login Success");
-//			session.setAttribute("LOGIN_USER", this.authService.doGetLoggedInUser());
-//		}
-//        UserDto userDto = (UserDto) session.getAttribute("LOGIN_USER");
-//        System.out.println(userDto.getEmail());
-//        return "Login Success" + userDto.getEmail();
-//    }
 }

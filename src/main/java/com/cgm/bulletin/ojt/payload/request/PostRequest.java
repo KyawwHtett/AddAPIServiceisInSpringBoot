@@ -10,145 +10,136 @@ import com.cgm.bulletin.ojt.persistence.entity.Post;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+/**
+ * <h2>PostRequest Class</h2>
+ * <p>
+ * Process for Displaying PostRequest
+ * </p>
+ * 
+ * @author KyawHtet
+ *
+ */
 @Data
 @AllArgsConstructor
 public class PostRequest {
+	/**
+	 * <h2>post_id</h2>
+	 * <p>
+	 * post_id
+	 * </p>
+	 */
 	private int post_id;
-	
+
+	/**
+	 * <h2>title</h2>
+	 * <p>
+	 * title
+	 * </p>
+	 */
 	@NotEmpty
 	private String title;
 
+	/**
+	 * <h2>description</h2>
+	 * <p>
+	 * description
+	 * </p>
+	 */
 	@NotEmpty
 	private String description;
 
+	/**
+	 * <h2>flag</h2>
+	 * <p>
+	 * flag
+	 * </p>
+	 */
 	private boolean flag;
 
+	/**
+	 * <h2>created_user_id</h2>
+	 * <p>
+	 * created_user_id
+	 * </p>
+	 */
 	private int created_user_id;
 
+	/**
+	 * <h2>created_at</h2>
+	 * <p>
+	 * created_at
+	 * </p>
+	 */
 	private Date created_at;
 
+	/**
+	 * <h2>updated_user_id</h2>
+	 * <p>
+	 * updated_user_id
+	 * </p>
+	 */
 	private int updated_user_id;
 
+	/**
+	 * <h2>updated_at</h2>
+	 * <p>
+	 * updated_at
+	 * </p>
+	 */
 	private Date updated_at;
 
+	/**
+	 * <h2>deletd_user_id</h2>
+	 * <p>
+	 * deletd_user_id
+	 * </p>
+	 */
 	private int deletd_user_id;
 
+	/**
+	 * <h2>deleted_at</h2>
+	 * <p>
+	 * deleted_at
+	 * </p>
+	 */
 	private Date deleted_at;
 
+	/**
+	 * <h2>categories</h2>
+	 * <p>
+	 * categories
+	 * </p>
+	 */
 	private Category categories;
 
+	/**
+	 * <h2>search</h2>
+	 * <p>
+	 * search
+	 * </p>
+	 */
 	private String search;
 
+	/**
+	 * <h2>username</h2>
+	 * <p>
+	 * username
+	 * </p>
+	 */
 	private String username;
-
-	public int getPost_id() {
-		return post_id;
-	}
-
-	public void setPost_id(int post_id) {
-		this.post_id = post_id;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public boolean isFlag() {
-		return flag;
-	}
-
-	public void setFlag(boolean flag) {
-		this.flag = flag;
-	}
-
-	public int getCreated_user_id() {
-		return created_user_id;
-	}
-
-	public void setCreated_user_id(int created_user_id) {
-		this.created_user_id = created_user_id;
-	}
-
-	public Date getCreated_at() {
-		return created_at;
-	}
-
-	public void setCreated_at(Date created_at) {
-		this.created_at = created_at;
-	}
-
-	public int getUpdated_user_id() {
-		return updated_user_id;
-	}
-
-	public void setUpdated_user_id(int updated_user_id) {
-		this.updated_user_id = updated_user_id;
-	}
-
-	public Date getUpdated_at() {
-		return updated_at;
-	}
-
-	public void setUpdated_at(Date updated_at) {
-		this.updated_at = updated_at;
-	}
-
-	public int getDeletd_user_id() {
-		return deletd_user_id;
-	}
-
-	public void setDeletd_user_id(int deletd_user_id) {
-		this.deletd_user_id = deletd_user_id;
-	}
-
-	public Date getDeleted_at() {
-		return deleted_at;
-	}
-
-	public void setDeleted_at(Date deleted_at) {
-		this.deleted_at = deleted_at;
-	}
-
-	public Category getCategories() {
-		return categories;
-	}
-
-	public void setCategories(Category categories) {
-		this.categories = categories;
-	}
-
-	public String getSearch() {
-		return search;
-	}
-
-	public void setSearch(String search) {
-		this.search = search;
-	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
 
 	public PostRequest() {
 		super();
 	}
 
+	/**
+	 * <h2>Constructor for PostRequest</h2>
+	 * <p>
+	 * Constructor for PostRequest
+	 * </p>
+	 * 
+	 * @param post
+	 */
 	public PostRequest(Post post) {
 		this.post_id = post.getPost_id();
 		this.title = post.getTitle();

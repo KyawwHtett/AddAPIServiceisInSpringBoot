@@ -7,67 +7,74 @@ import javax.validation.constraints.NotBlank;
 
 import com.cgm.bulletin.ojt.persistence.entity.PasswordReset;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
+/**
+ * <h2>PasswordResetSendMailRequest Class</h2>
+ * <p>
+ * Process for Displaying PasswordResetSendMailRequest
+ * </p>
+ * 
+ * @author KyawHtet
+ *
+ */
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class PasswordResetSendMailRequest {
-	
+
+	/**
+	 * <h2>user_email</h2>
+	 * <p>
+	 * user_email
+	 * </p>
+	 */
 	@Email
 	@NotBlank
 	private String user_email;
 
+	/**
+	 * <h2>password</h2>
+	 * <p>
+	 * password
+	 * </p>
+	 */
 	private String password;
 
+	/**
+	 * <h2>token</h2>
+	 * <p>
+	 * token
+	 * </p>
+	 */
 	private String token;
 
+	/**
+	 * <h2>created_at</h2>
+	 * <p>
+	 * created_at
+	 * </p>
+	 */
 	private Timestamp created_at;
 
+	/**
+	 * <h2>expired_at</h2>
+	 * <p>
+	 * expired_at
+	 * </p>
+	 */
 	private Timestamp expired_at;
 
-	public String getUser_email() {
-		return user_email;
-	}
-
-	public void setUser_email(String user_email) {
-		this.user_email = user_email;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public String getToken() {
-		return token;
-	}
-
-	public void setToken(String token) {
-		this.token = token;
-	}
-
-	public Timestamp getCreated_at() {
-		return created_at;
-	}
-
-	public void setCreated_at(Timestamp created_at) {
-		this.created_at = created_at;
-	}
-
-	public Timestamp getExpired_at() {
-		return expired_at;
-	}
-
-	public void setExpired_at(Timestamp expired_at) {
-		this.expired_at = expired_at;
-	}
-
-	public PasswordResetSendMailRequest() {
-		super();
-	}
-
+	/**
+	 * <h2>Constructor for PasswordResetSendMailRequest</h2>
+	 * <p>
+	 * Constructor for PasswordResetSendMailRequest
+	 * </p>
+	 * 
+	 * @param passwordReset
+	 */
 	public PasswordResetSendMailRequest(PasswordReset passwordReset) {
 		super();
 		this.user_email = passwordReset.getUser_email();

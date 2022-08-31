@@ -28,7 +28,14 @@ import com.cgm.bulletin.ojt.security.JwtAuthenticationEntryPoint;
  *
  */
 public class PostDeleteInterceptor implements HandlerInterceptor {
+	/**
+	 * <h2>LOGGER</h2>
+	 * <p>
+	 * LOGGER
+	 * </p>
+	 */
 	private static final Logger LOGGER = LoggerFactory.getLogger(JwtAuthenticationEntryPoint.class);
+	
 	/**
 	 * <h2>authservice</h2>
 	 * <p>

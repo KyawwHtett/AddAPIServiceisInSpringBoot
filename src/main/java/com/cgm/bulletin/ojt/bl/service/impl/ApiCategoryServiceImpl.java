@@ -46,7 +46,13 @@ public class ApiCategoryServiceImpl implements ApiCategoryService {
 	 */
 	@Autowired
 	private CategoryDao categoryDao;
-	
+
+	/**
+	 * <h2>sessionFactory</h2>
+	 * <p>
+	 * sessionFactory
+	 * </p>
+	 */
 	@Autowired
 	private SessionFactory sessionFactory;
 
@@ -69,12 +75,29 @@ public class ApiCategoryServiceImpl implements ApiCategoryService {
 		return catResponseList;
 	}
 
+	/**
+	 * <h2>doSaveCategory</h2>
+	 * <p>
+	 * 
+	 * </p>
+	 * 
+	 * @param categoryRequest
+	 */
 	@Override
 	public void doSaveCategory(@Valid CategoryRequest categoryRequest) {
 		Category category = new Category(categoryRequest);
 		this.categoryDao.dbSaveCategory(category);
 	}
 
+	/**
+	 * <h2>doGetCategoryById</h2>
+	 * <p>
+	 * 
+	 * </p>
+	 * 
+	 * @param category_id
+	 * @return
+	 */
 	@Override
 	public CategoryResponse doGetCategoryById(int category_id) {
 		Category category = this.categoryDao.dbGetCategoryById(category_id);
@@ -85,6 +108,15 @@ public class ApiCategoryServiceImpl implements ApiCategoryService {
 		return categoryResponse;
 	}
 
+	/**
+	 * <h2>doUpdateCategory</h2>
+	 * <p>
+	 * 
+	 * </p>
+	 * 
+	 * @param categoryRequest
+	 * @return
+	 */
 	@Override
 	public boolean doUpdateCategory(CategoryRequest categoryRequest) {
 		Category category = new Category(categoryRequest);
@@ -96,6 +128,15 @@ public class ApiCategoryServiceImpl implements ApiCategoryService {
 		return true;
 	}
 
+	/**
+	 * <h2>doDeleteCategory</h2>
+	 * <p>
+	 * 
+	 * </p>
+	 * 
+	 * @param category_id
+	 * @return
+	 */
 	@Override
 	public Boolean doDeleteCategory(int category_id) {
 		Category category = this.categoryDao.dbGetCategoryById(category_id);
@@ -106,7 +147,17 @@ public class ApiCategoryServiceImpl implements ApiCategoryService {
 		this.categoryDao.dbDeleteCategory(category);
 		return true;
 	}
-	
+
+	/**
+	 * <h2>doImportCategory</h2>
+	 * <p>
+	 * 
+	 * </p>
+	 * 
+	 * @param file
+	 * @return
+	 * @throws IOException
+	 */
 	@Override
 	public String doImportCategory(MultipartFile file) throws IOException {
 		String errorMsg = this.ValidateFile(file);
@@ -129,7 +180,18 @@ public class ApiCategoryServiceImpl implements ApiCategoryService {
 		workbook.close();
 		return "File Upload Successful";
 	}
-	
+
+	/**
+	 * <h2>ValidateFile</h2>
+	 * <p>
+	 * 
+	 * </p>
+	 *
+	 * @param file
+	 * @return
+	 * @throws IOException
+	 * @return String
+	 */
 	@SuppressWarnings("resource")
 	private String ValidateFile(MultipartFile file) throws IOException {
 		// check if file is null

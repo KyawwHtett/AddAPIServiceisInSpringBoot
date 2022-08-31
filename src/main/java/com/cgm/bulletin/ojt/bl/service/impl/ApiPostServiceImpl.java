@@ -173,6 +173,15 @@ public class ApiPostServiceImpl implements ApiPostService {
 		return null;
 	}
 
+	/**
+	 * <h2>doUpdatePost</h2>
+	 * <p>
+	 * 
+	 * </p>
+	 * 
+	 * @param postRequest
+	 * @return
+	 */
 	@Override
 	public PostResponse doUpdatePost(PostRequest postRequest) {
 		Post post = this.postDao.dbGetPostById(postRequest.getPost_id());
@@ -217,6 +226,15 @@ public class ApiPostServiceImpl implements ApiPostService {
 //		return userDto;
 //	}
 
+	/**
+	 * <h2>doDownloadPost</h2>
+	 * <p>
+	 * 
+	 * </p>
+	 * 
+	 * @param response
+	 * @throws IOException
+	 */
 	/**
 	 * <h2>doDownloadPost</h2>
 	 * <p>
@@ -271,6 +289,15 @@ public class ApiPostServiceImpl implements ApiPostService {
 		}
 	}
 
+	/**
+	 * <h2>doGetAllPostsByUser</h2>
+	 * <p>
+	 * 
+	 * </p>
+	 * 
+	 * @param id
+	 * @return
+	 */
 	@Override
 	public List<PostResponse> doGetAllPostsByUser(int id) {
 		List<Post> listPost = this.postDao.dbGetAllPostsByUser(id);

@@ -5,7 +5,7 @@ import java.util.List;
 import com.cgm.bulletin.ojt.persistence.entity.Category;
 
 /**
- * <h2> CategoryDao Class</h2>
+ * <h2>CategoryDao Class</h2>
  * <p>
  * Process for Displaying CategoryDao
  * </p>
@@ -26,7 +26,7 @@ public interface CategoryDao {
 	void dbSaveCategory(Category category);
 
 	/**
-	 * <h2> dbGetAllCategories</h2>
+	 * <h2>dbGetAllCategories</h2>
 	 * <p>
 	 * 
 	 * </p>
@@ -37,7 +37,7 @@ public interface CategoryDao {
 	List<Category> dbGetAllCategories();
 
 	/**
-	 * <h2> dbGetCategoryById</h2>
+	 * <h2>dbGetCategoryById</h2>
 	 * <p>
 	 * 
 	 * </p>
@@ -49,7 +49,7 @@ public interface CategoryDao {
 	Category dbGetCategoryById(int category_id);
 
 	/**
-	 * <h2> dbDeleteCategory</h2>
+	 * <h2>dbDeleteCategory</h2>
 	 * <p>
 	 * 
 	 * </p>
@@ -60,7 +60,7 @@ public interface CategoryDao {
 	void dbDeleteCategory(Category category);
 
 	/**
-	 * <h2> dbUpdateCategory</h2>
+	 * <h2>dbUpdateCategory</h2>
 	 * <p>
 	 * 
 	 * </p>

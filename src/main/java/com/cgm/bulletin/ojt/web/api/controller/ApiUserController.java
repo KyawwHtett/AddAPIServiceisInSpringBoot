@@ -31,18 +31,54 @@ import com.cgm.bulletin.ojt.payload.response.PostResponse;
 import com.cgm.bulletin.ojt.payload.response.UserResponse;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
+/**
+ * <h2>ApiUserController Class</h2>
+ * <p>
+ * Process for Displaying ApiUserController
+ * </p>
+ * 
+ * @author KyawHtet
+ *
+ */
 @RestController
 @RequestMapping(value = "/api/user")
 public class ApiUserController {
+	/**
+	 * <h2>authService</h2>
+	 * <p>
+	 * authService
+	 * </p>
+	 */
 	@Autowired
 	private AuthenticationService authService;
 
+	/**
+	 * <h2>apiUserService</h2>
+	 * <p>
+	 * apiUserService
+	 * </p>
+	 */
 	@Autowired
 	private ApiUserService apiUserService;
 
+	/**
+	 * <h2>apiPostService</h2>
+	 * <p>
+	 * apiPostService
+	 * </p>
+	 */
 	@Autowired
 	private ApiPostService apiPostService;
 
+	/**
+	 * <h2>showUserList</h2>
+	 * <p>
+	 * 
+	 * </p>
+	 *
+	 * @return
+	 * @return ResponseEntity<?>
+	 */
 	@GetMapping(value = "/list")
 	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<?> showUserList() {
@@ -50,6 +86,17 @@ public class ApiUserController {
 		return new ResponseEntity<>(users, HttpStatus.OK);
 	}
 
+	/**
+	 * <h2>createUser</h2>
+	 * <p>
+	 * 
+	 * </p>
+	 *
+	 * @param userRequest
+	 * @return
+	 * @throws JsonProcessingException
+	 * @return ResponseEntity<?>
+	 */
 	@PostMapping({ "/create", "/register" })
 	public ResponseEntity<?> createUser(@RequestBody @Valid UserRequest userRequest) throws JsonProcessingException {
 		if (this.apiUserService.doApiIsEmailExist(userRequest.getEmail())) {
@@ -63,6 +110,16 @@ public class ApiUserController {
 		return new ResponseEntity<>(userResponse, HttpStatus.OK);
 	}
 
+	/**
+	 * <h2>editUser</h2>
+	 * <p>
+	 * 
+	 * </p>
+	 *
+	 * @param userId
+	 * @return
+	 * @return ResponseEntity<?>
+	 */
 	@GetMapping(value = "/edit/{id}")
 	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
 	public ResponseEntity<?> editUser(@PathVariable("id") int userId) {
@@ -74,6 +131,16 @@ public class ApiUserController {
 		return new ResponseEntity<>(userResponse, HttpStatus.OK);
 	}
 
+	/**
+	 * <h2>updateUser</h2>
+	 * <p>
+	 * 
+	 * </p>
+	 *
+	 * @param userRequest
+	 * @return
+	 * @return ResponseEntity<?>
+	 */
 	@PatchMapping(value = "/update")
 	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
 	public ResponseEntity<?> updateUser(@Valid @RequestBody UserRequest userRequest) {
@@ -91,6 +158,16 @@ public class ApiUserController {
 		return new ResponseEntity<>(userResponse, HttpStatus.OK);
 	}
 
+	/**
+	 * <h2>deletePost</h2>
+	 * <p>
+	 * 
+	 * </p>
+	 *
+	 * @param userId
+	 * @return
+	 * @return ResponseEntity<?>
+	 */
 	@DeleteMapping("/delete/{id}")
 	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<?> deletePost(@PathVariable("id") int userId) {
@@ -98,12 +175,35 @@ public class ApiUserController {
 		return new ResponseEntity<>(apiResponse, apiResponse.getSuccess() ? HttpStatus.OK : HttpStatus.UNAUTHORIZED);
 	}
 
+	/**
+	 * <h2>logout</h2>
+	 * <p>
+	 * 
+	 * </p>
+	 *
+	 * @param request
+	 * @param response
+	 * @return
+	 * @return ResponseEntity<?>
+	 */
 	@GetMapping("/logout")
 	public ResponseEntity<?> logout(HttpServletRequest request, HttpServletResponse response) {
 		String jwt = this.authService.doApiLogout(request, response);
 		return ResponseEntity.ok(new JwtAuthenticationResponse(jwt));
 	}
 
+	/**
+	 * <h2>downloadExcel</h2>
+	 * <p>
+	 * 
+	 * </p>
+	 *
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws IOException
+	 * @return ResponseEntity<?>
+	 */
 	@GetMapping(value = "/download")
 	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<?> downloadExcel(HttpServletRequest request, HttpServletResponse response)
@@ -114,6 +214,15 @@ public class ApiUserController {
 		return new ResponseEntity<>(apiResponse, HttpStatus.OK);
 	}
 
+	/**
+	 * <h2>userProfile</h2>
+	 * <p>
+	 * 
+	 * </p>
+	 *
+	 * @return
+	 * @return ResponseEntity<?>
+	 */
 	@GetMapping(value = "/profile")
 	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
 	public ResponseEntity<?> userProfile() {
@@ -121,15 +230,34 @@ public class ApiUserController {
 		UserResponse responseUser = new UserResponse(loginUser);
 		List<PostResponse> setList = this.apiPostService.doGetAllPostsByUser(loginUser.getId());
 		responseUser.setListPost(setList);
-		return new ResponseEntity<> (responseUser, HttpStatus.OK);
+		return new ResponseEntity<>(responseUser, HttpStatus.OK);
 	}
 
+	/**
+	 * <h2>denied</h2>
+	 * <p>
+	 * 
+	 * </p>
+	 *
+	 * @return
+	 * @return ResponseEntity<?>
+	 */
 	@GetMapping("/accessDenied")
 	public ResponseEntity<?> denied() {
 		ApiResponse response = new ApiResponse(Boolean.FALSE, "Sorry, You're not premission to access this resource.");
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 
+	/**
+	 * <h2>getBaseUrl</h2>
+	 * <p>
+	 * 
+	 * </p>
+	 *
+	 * @param request
+	 * @return
+	 * @return String
+	 */
 	private String getBaseUrl(HttpServletRequest request) {
 		String url = request.getScheme() + "://" + request.getServerName();
 		if (request.getServerPort() != 0) {

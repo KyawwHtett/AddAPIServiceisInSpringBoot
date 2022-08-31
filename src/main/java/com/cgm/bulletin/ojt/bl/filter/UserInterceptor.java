@@ -28,6 +28,12 @@ import com.cgm.bulletin.ojt.web.form.UserForm;
  *
  */
 public class UserInterceptor implements HandlerInterceptor {
+	/**
+	 * <h2>LOGGER</h2>
+	 * <p>
+	 * LOGGER
+	 * </p>
+	 */
 	private static final Logger LOGGER = LoggerFactory.getLogger(JwtAuthenticationEntryPoint.class);
 
 	/**
