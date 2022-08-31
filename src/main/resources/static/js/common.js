@@ -1,4 +1,5 @@
 $(document).ready(function() {
+	console.log("ready")
 	var table = $('#data-table').DataTable({
 		"paging": true,
 		"pageLength": 5,
@@ -26,7 +27,7 @@ $(document).ready(function() {
 			}
 		}, 'colvis'],
 	});
-	$('#userTableSearch').keyup(function() {
+	$('#dataTableSearch').keyup(function() {
 		table.search($(this).val()).draw();
 		userTable.search($(this).val()).draw();
 	});

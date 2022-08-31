@@ -1,6 +1,9 @@
 package com.cgm.bulletin.ojt.bl.service;
 
+import java.io.IOException;
 import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import com.cgm.bulletin.ojt.persistence.entity.Category;
 import com.cgm.bulletin.ojt.web.form.CategoryForm;
@@ -71,4 +74,6 @@ public interface CategoryService {
 	 * @return void
 	 */
 	void doUpdateCategory(CategoryForm category);
+
+	public String doImportCategory(MultipartFile file) throws IOException;
 }

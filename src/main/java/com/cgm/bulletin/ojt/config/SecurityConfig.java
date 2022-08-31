@@ -151,6 +151,7 @@ public class SecurityConfig {
 	    	.antMatchers("/user/list").hasRole("ADMIN")
 	    	.antMatchers("/user/create").hasRole("ADMIN")
 	    	.antMatchers("/user/download").hasRole("ADMIN")
+	    	.antMatchers("/category/**").hasRole("ADMIN")
 	    	.anyRequest().authenticated()
 	    	.and()
 	    	.formLogin()

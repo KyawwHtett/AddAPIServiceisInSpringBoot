@@ -1,6 +1,9 @@
 package com.cgm.bulletin.ojt.bl.service;
 
+import java.io.IOException;
 import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import com.cgm.bulletin.ojt.payload.request.CategoryRequest;
 import com.cgm.bulletin.ojt.payload.response.CategoryResponse;
@@ -34,4 +37,6 @@ public interface ApiCategoryService {
 	boolean doUpdateCategory(CategoryRequest categoryRequest);
 
 	Boolean doDeleteCategory(int category_id);
+
+	public String doImportCategory(MultipartFile file) throws IOException;
 }

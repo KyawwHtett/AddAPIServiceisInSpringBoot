@@ -1,5 +1,6 @@
 package com.cgm.bulletin.ojt.web.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -11,7 +12,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.cgm.bulletin.ojt.bl.dto.UserDto;
 import com.cgm.bulletin.ojt.bl.service.AuthenticationService;
@@ -214,5 +220,13 @@ public class CategoryController {
 	public ModelAndView deleteCategory(@PathVariable("id") int category_id) {
 		this.categoryService.doDeleteCategory(category_id);
 		return new ModelAndView("redirect:/category/list");
+	}
+
+	@RequestMapping(value = "/category/import", method = RequestMethod.POST)
+	public ModelAndView importCategory(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes)
+	        throws IOException {
+		ModelAndView categoryList = new ModelAndView("redirect:/category/list");
+		redirectAttributes.addFlashAttribute("fileImportMsg", this.categoryService.doImportCategory(file));
+		return categoryList;
 	}
 }

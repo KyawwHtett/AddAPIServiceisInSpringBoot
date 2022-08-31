@@ -1,5 +1,6 @@
 package com.cgm.bulletin.ojt.bl.service.impl;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -7,8 +8,17 @@ import java.util.List;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
+import org.apache.commons.io.FilenameUtils;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.cgm.bulletin.ojt.bl.service.ApiCategoryService;
 import com.cgm.bulletin.ojt.payload.request.CategoryRequest;
@@ -36,6 +46,9 @@ public class ApiCategoryServiceImpl implements ApiCategoryService {
 	 */
 	@Autowired
 	private CategoryDao categoryDao;
+	
+	@Autowired
+	private SessionFactory sessionFactory;
 
 	/**
 	 * <h2>doGetAllCategories</h2>
@@ -92,5 +105,64 @@ public class ApiCategoryServiceImpl implements ApiCategoryService {
 		category.setDeleted_at(new Date());
 		this.categoryDao.dbDeleteCategory(category);
 		return true;
+	}
+	
+	@Override
+	public String doImportCategory(MultipartFile file) throws IOException {
+		String errorMsg = this.ValidateFile(file);
+		if (errorMsg != null) {
+			return errorMsg;
+		}
+		XSSFWorkbook workbook = new XSSFWorkbook(file.getInputStream());
+		XSSFSheet sheet = workbook.getSheetAt(0);
+		Session session = sessionFactory.openSession();
+		session.beginTransaction();
+		for (int i = sheet.getFirstRowNum() + 1; i <= sheet.getLastRowNum(); i++) {
+			Category category = new Category();
+			Row row = sheet.getRow(i);
+			Cell cellUsername = row.getCell(1);
+			category.setCategory_name(cellUsername.getStringCellValue());
+			this.categoryDao.dbSaveCategory(category);
+		}
+		session.getTransaction().commit();
+		session.close();
+		workbook.close();
+		return "File Upload Successful";
+	}
+	
+	@SuppressWarnings("resource")
+	private String ValidateFile(MultipartFile file) throws IOException {
+		// check if file is null
+		if (file.isEmpty()) {
+			return "No file is selected";
+		}
+		String extension = FilenameUtils.getExtension(file.getOriginalFilename());
+		XSSFWorkbook workbook = new XSSFWorkbook(file.getInputStream());
+		XSSFSheet sheet = workbook.getSheetAt(0);
+		// check extension
+		if (!extension.equals("xlsx")) {
+			return "File Extension Wrong!";
+		}
+		// check null
+		for (int i = sheet.getFirstRowNum(); i <= sheet.getLastRowNum(); i++) {
+			Row row = sheet.getRow(i);
+			if (row == null) {
+				return "File is null";
+			}
+		}
+		// check file Type
+		for (int i = sheet.getFirstRowNum() + 1; i <= sheet.getLastRowNum(); i++) {
+			Row row = sheet.getRow(i);
+			// Category Name String
+			Cell cellUsername = row.getCell(1);
+			if (cellUsername == null || (cellUsername.getCellType() != CellType.STRING)) {
+				return "Wrong Data Type in this file Category Name";
+			}
+		}
+		// check file has no data
+		if (sheet.getFirstRowNum() == sheet.getLastRowNum()) {
+			return "No Data in the File";
+		}
+		return null;
 	}
 }
