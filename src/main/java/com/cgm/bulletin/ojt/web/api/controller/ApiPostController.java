@@ -18,9 +18,9 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,8 +33,6 @@ import com.cgm.bulletin.ojt.payload.response.PostResponse;
 import com.cgm.bulletin.ojt.persistence.entity.Category;
 import com.cgm.bulletin.ojt.web.form.PostForm;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
 
 /**
  * <h2>ApiPostController Class</h2>
@@ -99,9 +97,10 @@ public class ApiPostController {
 	 * @return ResponseEntity<PostResponse>
 	 */
 	@PostMapping("/create")
-	public ResponseEntity<PostResponse> savePost(@RequestBody @Valid PostForm postForm, BindingResult result) {
+	public ResponseEntity<?> savePost(@Valid @ModelAttribute PostForm postForm, BindingResult result) {
+		System.out.println("heloworld");
 		if (result.hasErrors()) {
-			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>("Must Not Be Empty!", HttpStatus.BAD_REQUEST);
 		}
 		List<Category> categoryList = this.categoryService.doGetAllCategories();
 		PostForm postConfirm = this.getPostForm(postForm, categoryList);
@@ -121,11 +120,9 @@ public class ApiPostController {
 	 * @return ResponseEntity<String>
 	 */
 	@GetMapping("/edit/{id}")
-	public ResponseEntity<String> editPost(@PathVariable("id") int postId) throws JsonProcessingException {
+	public ResponseEntity<?> editPost(@PathVariable("id") int postId) throws JsonProcessingException {
 		PostResponse postResponse = this.apiPostService.doGetPostById(postId);
-		ObjectWriter jsonParse = new ObjectMapper().writer().withDefaultPrettyPrinter();
-		String jsonString = jsonParse.writeValueAsString(postResponse);
-		return new ResponseEntity<>(jsonString, postResponse == null ? HttpStatus.NOT_FOUND : HttpStatus.FOUND);
+		return new ResponseEntity<>(postResponse, postResponse == null ? HttpStatus.NOT_FOUND : HttpStatus.FOUND);
 	}
 
 	/**
@@ -142,7 +139,7 @@ public class ApiPostController {
 	 */
 	@PostMapping("/update")
 	public ResponseEntity<PostResponse> updatePost(@RequestParam("id") int id,
-	        @RequestBody @Valid PostRequest postRequest, BindingResult result) {
+	        @Valid @ModelAttribute PostRequest postRequest, BindingResult result) {
 		if (result.hasErrors()) {
 			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
 		}
@@ -181,7 +178,7 @@ public class ApiPostController {
 	 * @return ResponseEntity<?>
 	 */
 	@GetMapping("/search")
-	public ResponseEntity<?> searchPost(@RequestBody PostRequest postRequest,
+	public ResponseEntity<?> searchPost(@ModelAttribute PostRequest postRequest,
 	        @RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size) {
 		Page<PostResponse> listPosts = this.postListPaginatedModel(page, size, postRequest.getSearch(), 0);
 		return new ResponseEntity<>(listPosts, HttpStatus.OK);

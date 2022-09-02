@@ -8,8 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -70,7 +70,7 @@ public class ApiPasswordResetController {
 	 * @return ResponseEntity<?>
 	 */
 	@PostMapping(value = "/password/reset/sendMail")
-	public ResponseEntity<?> sentMail(@Valid @RequestBody PasswordResetSendMailRequest sentMailForm,
+	public ResponseEntity<?> sentMail(@Valid @ModelAttribute PasswordResetSendMailRequest sentMailForm,
 	        HttpServletRequest request) {
 		if (!this.apiUserService.doApiIsEmailExist(sentMailForm.getUser_email())) {
 			System.out.println(sentMailForm.getUser_email());

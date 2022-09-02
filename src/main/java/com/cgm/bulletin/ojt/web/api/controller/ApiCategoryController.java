@@ -12,10 +12,10 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -90,7 +90,7 @@ public class ApiCategoryController {
 	 */
 	@PostMapping(value = "/create")
 	@PreAuthorize("hasRole('ADMIN')")
-	public HttpStatus saveCategory(@RequestBody @Valid CategoryRequest categoryRequest, BindingResult result) {
+	public HttpStatus saveCategory(@Valid @ModelAttribute CategoryRequest categoryRequest, BindingResult result) {
 		if (result.hasErrors()) {
 			return HttpStatus.BAD_REQUEST;
 		}
@@ -129,7 +129,7 @@ public class ApiCategoryController {
 	 */
 	@PatchMapping(value = "/update")
 	@PreAuthorize("hasRole('ADMIN')")
-	public HttpStatus updateCategory(@RequestBody @Valid CategoryRequest categoryRequest, BindingResult result) {
+	public HttpStatus updateCategory(@Valid @ModelAttribute CategoryRequest categoryRequest, BindingResult result) {
 		if (result.hasErrors()) {
 			return HttpStatus.BAD_REQUEST;
 		}

@@ -13,10 +13,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -98,7 +98,7 @@ public class ApiUserController {
 	 * @return ResponseEntity<?>
 	 */
 	@PostMapping({ "/create", "/register" })
-	public ResponseEntity<?> createUser(@RequestBody @Valid UserRequest userRequest) throws JsonProcessingException {
+	public ResponseEntity<?> createUser(@Valid @ModelAttribute UserRequest userRequest) throws JsonProcessingException {
 		if (this.apiUserService.doApiIsEmailExist(userRequest.getEmail())) {
 			ApiResponse apiResponse = new ApiResponse(Boolean.FALSE, "Email has already Taken.");
 			return new ResponseEntity<>(apiResponse, HttpStatus.OK);
@@ -143,7 +143,7 @@ public class ApiUserController {
 	 */
 	@PatchMapping(value = "/update")
 	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-	public ResponseEntity<?> updateUser(@Valid @RequestBody UserRequest userRequest) {
+	public ResponseEntity<?> updateUser(@Valid @ModelAttribute UserRequest userRequest) {
 		UserResponse oldUserForm = this.apiUserService.doApiGetUserById(userRequest.getId());
 		if (oldUserForm == null) {
 			return new ResponseEntity<>(new ApiResponse(Boolean.FALSE, "Invalid User"), HttpStatus.OK);

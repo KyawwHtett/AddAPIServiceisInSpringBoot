@@ -1,16 +1,13 @@
 package com.cgm.bulletin.ojt.web.api.controller;
 
-import java.util.List;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,7 +17,6 @@ import com.cgm.bulletin.ojt.bl.service.UserService;
 import com.cgm.bulletin.ojt.payload.request.LoginRequest;
 import com.cgm.bulletin.ojt.payload.response.ApiResponse;
 import com.cgm.bulletin.ojt.payload.response.JwtAuthenticationResponse;
-import com.cgm.bulletin.ojt.persistence.entity.User;
 
 /**
  * <h2>ApiLoginController Class</h2>
@@ -62,20 +58,6 @@ public class ApiLoginController {
 	private PasswordEncoder passwordEncoder;
 
 	/**
-	 * <h2>init</h2>
-	 * <p>
-	 * 
-	 * </p>
-	 *
-	 * @return
-	 * @return List<User>
-	 */
-	@GetMapping(value = { "/", "/login" })
-	public List<User> init() {
-		return this.userService.findAll();
-	}
-
-	/**
 	 * <h2>authenticateUser</h2>
 	 * <p>
 	 * 
@@ -86,7 +68,7 @@ public class ApiLoginController {
 	 * @return ResponseEntity<?>
 	 */
 	@PostMapping("/login")
-	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+	public ResponseEntity<?> authenticateUser(@Valid @ModelAttribute LoginRequest loginRequest) {
 		if (!this.userService.doIsEmailExist(loginRequest.getEmail())) {
 			return new ResponseEntity<>(new ApiResponse(Boolean.FALSE, "Invalid Email Address"), HttpStatus.NOT_FOUND);
 		}
